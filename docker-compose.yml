@@ -1,0 +1,53 @@
+version: "3.9"
+
+services:
+  # Local PostgreSQL for development (optional - Supabase is the primary DB)
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: qplan
+      POSTGRES_USER: qplan
+      POSTGRES_PASSWORD: qplan_dev_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    profiles:
+      - local-db
+
+  # FastAPI Backend
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      # Supabase PostgreSQL (production)
+      DATABASE_URL: postgresql+psycopg2://postgres:SNOJEi9NTRTutmXN@db.ulvsophbtfdhfoypyqts.supabase.co:5432/postgres?sslmode=require
+      DATABASE_URL_ASYNC: postgresql+asyncpg://postgres:SNOJEi9NTRTutmXN@db.ulvsophbtfdhfoypyqts.supabase.co:5432/postgres?ssl=require
+      SUPABASE_URL: https://ulvsophbtfdhfoypyqts.supabase.co
+      SUPABASE_KEY: sb_publishable_j-7ZlOER9A0x9835mK8TQw_Wt1JA6Oc
+      CORS_ORIGINS: http://localhost:3000,http://localhost:5173
+      DEBUG: "true"
+    volumes:
+      - ./backend:/app
+
+  # React Frontend (dev server)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      VITE_SUPABASE_URL: https://ulvsophbtfdhfoypyqts.supabase.co
+      VITE_SUPABASE_PUBLISHABLE_KEY: sb_publishable_j-7ZlOER9A0x9835mK8TQw_Wt1JA6Oc
+      VITE_API_URL: http://localhost:8000/api/v1
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend/src:/app/src
+
+volumes:
+  pgdata:
