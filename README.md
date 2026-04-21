@@ -1,12 +1,12 @@
-# Qplan — Enterprise Project Planning & Scheduling System
+# Qplan �?Enterprise Project Planning & Scheduling System
 
-A Primavera P6-like web-based project planning and scheduling platform. Qplan provides professional-grade CPM scheduling, WBS management, dependency logic, baseline control, and reporting — all in a modern web interface.
+A Primavera P6-like web-based project planning and scheduling platform. Qplan provides professional-grade CPM scheduling, WBS management, dependency logic, baseline control, and reporting �?all in a modern web interface.
 
 ---
 
 ## Table of Contents
 
-- [Qplan — Enterprise Project Planning \& Scheduling System](#qplan--enterprise-project-planning--scheduling-system)
+- [Qplan �?Enterprise Project Planning \& Scheduling System](#qplan--enterprise-project-planning--scheduling-system)
   - [Table of Contents](#table-of-contents)
   - [Architecture Overview](#architecture-overview)
     - [Key Architecture Rules](#key-architecture-rules)
@@ -75,30 +75,30 @@ A Primavera P6-like web-based project planning and scheduling platform. Qplan pr
 ## Architecture Overview
 
 ```
-┌──────────────────────────────────────────────────────────┐
-│                    Browser (React SPA)                    │
-│  Login · Dashboard · WBS · Activities · Gantt · Reports  │
-└──────────────┬─────────────────────────┬─────────────────┘
-               │                         │
+┌──────────────────────────────────────────────────────────�?
+�?                   Browser (React SPA)                    �?
+�? Login · Dashboard · WBS · Activities · Gantt · Reports  �?
+└──────────────┬─────────────────────────┬─────────────────�?
+               �?                        �?
      Supabase Auth                FastAPI Backend
      (JWT tokens)                 (Port 8000)
-               │                         │
-               │              ┌──────────┴──────────┐
-               │              │  Scheduling Engine   │
-               │              │  CPM · Float · Path  │
-               │              └──────────┬──────────┘
-               │                         │
-       ┌───────┴─────────────────────────┴───────┐
-       │            Supabase PostgreSQL           │
-       │   (Auth DB + App Data + Storage)         │
-       └──────────────────────────────────────────┘
+               �?                        �?
+               �?             ┌──────────┴──────────�?
+               �?             �? Scheduling Engine   �?
+               �?             �? CPM · Float · Path  �?
+               �?             └──────────┬──────────�?
+               �?                        �?
+       ┌───────┴─────────────────────────┴───────�?
+       �?           Supabase PostgreSQL           �?
+       �?  (Auth DB + App Data + Storage)         �?
+       └──────────────────────────────────────────�?
 ```
 
 ### Key Architecture Rules
-- **Frontend never computes schedule dates** — all CPM logic runs server-side
-- **Backend owns business logic** — dependency validation, CPM calculations, authorization
-- **Supabase handles identity** — authentication only; FastAPI enforces authorization
-- **Scheduling engine uses flat dictionaries** — no heavy ORM hydration for CPM computation
+- **Frontend never computes schedule dates** �?all CPM logic runs server-side
+- **Backend owns business logic** �?dependency validation, CPM calculations, authorization
+- **Supabase handles identity** �?authentication only; FastAPI enforces authorization
+- **Scheduling engine uses flat dictionaries** �?no heavy ORM hydration for CPM computation
 
 ---
 
@@ -112,10 +112,10 @@ A Primavera P6-like web-based project planning and scheduling platform. Qplan pr
 | Backend     | FastAPI (Python)                   | 3.12+       |
 | ORM         | SQLAlchemy + Alembic               | 2.0.x       |
 | Database    | PostgreSQL (via Supabase)          | 16          |
-| Auth        | Supabase Auth                      | —           |
-| Storage     | Supabase Storage                   | —           |
-| HTTP Client | Axios (frontend) / httpx (backend) | —           |
-| Container   | Docker + Docker Compose            | —           |
+| Auth        | Supabase Auth                      | �?          |
+| Storage     | Supabase Storage                   | �?          |
+| HTTP Client | Axios (frontend) / httpx (backend) | �?          |
+| Container   | Docker + Docker Compose            | �?          |
 
 ---
 
@@ -126,10 +126,10 @@ A Primavera P6-like web-based project planning and scheduling platform. Qplan pr
 - A Qplan account (created by your administrator)
 
 ### For Developers
-- **Python 3.12+** — [python.org](https://python.org)
-- **Node.js 20+** — [nodejs.org](https://nodejs.org)
-- **Git** — [git-scm.com](https://git-scm.com)
-- **Docker & Docker Compose** (optional, for containerized setup) — [docker.com](https://docker.com)
+- **Python 3.12+** �?[python.org](https://python.org)
+- **Node.js 20+** �?[nodejs.org](https://nodejs.org)
+- **Git** �?[git-scm.com](https://git-scm.com)
+- **Docker & Docker Compose** (optional, for containerized setup) �?[docker.com](https://docker.com)
 
 ---
 
@@ -139,7 +139,7 @@ The fastest way to get Qplan running using Docker:
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/your-org/qplan.git
+git clone https://github.com/tms-qinst/qplan.git
 cd qplan
 
 # 2. Start all services (backend + frontend)
@@ -189,7 +189,7 @@ pip install -r requirements.txt
 
 # 5. Create your .env file from the example
 # (Already configured with Supabase credentials)
-# Edit if needed — see Environment Variables Reference below
+# Edit if needed �?see Environment Variables Reference below
 
 # 6. Run database migrations
 alembic upgrade head
@@ -213,7 +213,7 @@ npm install
 
 # 3. Create your .env file from the example
 # (Already configured with Supabase credentials)
-# Edit if needed — see Environment Variables Reference below
+# Edit if needed �?see Environment Variables Reference below
 
 # 4. Start the development server
 npm run dev
@@ -301,14 +301,14 @@ alembic upgrade +1       # Apply next migration
 The application uses **20 tables** covering the full planning lifecycle:
 
 ```
-roles → users → project_members → projects
-                        ↓
-              calendars · wbs → activities
-                                  ↓
+roles �?users �?project_members �?projects
+                        �?
+              calendars · wbs �?activities
+                                  �?
               activity_relationships · activity_constraints
-              activity_codes → activity_code_assignments
-              progress_updates · resource_assignments → resources
-              baselines → baseline_activities · baseline_relationships
+              activity_codes �?activity_code_assignments
+              progress_updates · resource_assignments �?resources
+              baselines �?baseline_activities · baseline_relationships
               approvals · audit_logs · attachments
 ```
 
@@ -324,10 +324,10 @@ pytest tests/test_cpm.py -v
 ```
 
 Test cases include:
-- **Basic FS logic** — Activity A (3 days) → Activity B (2 days) with 100% progress
-- **SS relationship** — Start-to-Start with lag
-- **Circular dependency detection** — A → B → C → A must be rejected
-- **Critical path identification** — Longest path through the network
+- **Basic FS logic** �?Activity A (3 days) �?Activity B (2 days) with 100% progress
+- **SS relationship** �?Start-to-Start with lag
+- **Circular dependency detection** �?A �?B �?C �?A must be rejected
+- **Critical path identification** �?Longest path through the network
 
 ### Frontend Build Check
 
@@ -352,11 +352,11 @@ npm run build    # TypeScript compilation + Vite build
 
 After logging in, you'll see the **Dashboard** with:
 
-- **Active Projects** — List of projects you're a member of
-- **Critical Path Alerts** — Activities that are behind schedule
-- **Overdue Activities** — Activities past their planned finish date
-- **Baseline Status** — Which projects have approved baselines
-- **Recent Updates** — Latest progress updates across your projects
+- **Active Projects** �?List of projects you're a member of
+- **Critical Path Alerts** �?Activities that are behind schedule
+- **Overdue Activities** �?Activities past their planned finish date
+- **Baseline Status** �?Which projects have approved baselines
+- **Recent Updates** �?Latest progress updates across your projects
 
 Click any project card to enter its workspace.
 
@@ -364,12 +364,12 @@ Click any project card to enter its workspace.
 
 1. From the Dashboard, click **"New Project"**
 2. Fill in the project details:
-   - **Project Code** — Unique identifier (e.g., `PRJ-001`)
-   - **Project Name** — Descriptive name
-   - **Client Name** — Client or stakeholder
-   - **Description** — Project scope description
-   - **Start Date** — Planned project start
-   - **Data Date** — Current status date (critical for CPM)
+   - **Project Code** �?Unique identifier (e.g., `PRJ-001`)
+   - **Project Name** �?Descriptive name
+   - **Client Name** �?Client or stakeholder
+   - **Description** �?Project scope description
+   - **Start Date** �?Planned project start
+   - **Data Date** �?Current status date (critical for CPM)
 3. Click **Create**
 4. You will be automatically added as the Project Manager
 
@@ -455,10 +455,10 @@ The CPM (Critical Path Method) engine calculates all schedule dates:
 2. Verify the **Data Date** (the status date for calculations)
 3. Click **"Run Schedule"**
 4. The engine performs:
-   - **Forward Pass** — Calculates Early Start (ES) and Early Finish (EF)
-   - **Backward Pass** — Calculates Late Start (LS) and Late Finish (LF)
-   - **Float Calculation** — Total Float and Free Float for each activity
-   - **Critical Path Detection** — Activities with zero total float
+   - **Forward Pass** �?Calculates Early Start (ES) and Early Finish (EF)
+   - **Backward Pass** �?Calculates Late Start (LS) and Late Finish (LF)
+   - **Float Calculation** �?Total Float and Free Float for each activity
+   - **Critical Path Detection** �?Activities with zero total float
 5. Review results in the table:
    - Activities highlighted in **red** are on the critical path
    - **Warnings** (if any) are displayed at the top
@@ -469,10 +469,10 @@ The CPM (Critical Path Method) engine calculates all schedule dates:
 
 1. After running the schedule, go to the **Gantt** view
 2. The timeline displays:
-   - **Blue bars** — Normal activities
-   - **Red bars** — Critical path activities
-   - **Diamond markers** — Milestones
-   - **Arrows** — Dependency relationships
+   - **Blue bars** �?Normal activities
+   - **Red bars** �?Critical path activities
+   - **Diamond markers** �?Milestones
+   - **Arrows** �?Dependency relationships
 3. Drag/drop actions are supported but must produce valid logic
 4. Hover over any bar to see detailed dates and float
 
@@ -483,7 +483,7 @@ A baseline is a snapshot of the approved schedule:
 1. Go to the **Baselines** tab
 2. Click **"Create Baseline"**
 3. Enter a **Baseline Name** and **Revision Number**
-4. Click **Create** — this snapshots:
+4. Click **Create** �?this snapshots:
    - All activity dates and durations
    - All dependency relationships
 5. To compare current schedule vs baseline:
@@ -516,72 +516,72 @@ The **Reports** section provides:
 ```
 Qplan/
 ├── backend/                          # FastAPI Python backend
-│   ├── app/
-│   │   ├── __init__.py
-│   │   ├── main.py                   # FastAPI app entry point
-│   │   ├── api/
-│   │   │   └── v1/
-│   │   │       ├── router.py         # API router aggregation
-│   │   │       └── endpoints/
-│   │   │           ├── auth.py       # POST /auth/login, /auth/me
-│   │   │           ├── projects.py   # CRUD /projects
-│   │   │           ├── wbs.py        # CRUD /projects/{id}/wbs
-│   │   │           ├── activities.py # CRUD /projects/{id}/activities
-│   │   │           ├── relationships.py  # CRUD relationships
-│   │   │           ├── schedule.py   # POST /projects/{id}/schedule
-│   │   │           └── baselines.py  # CRUD baselines
-│   │   ├── core/
-│   │   │   ├── config.py             # Pydantic settings
-│   │   │   ├── database.py           # SQLAlchemy engine setup
-│   │   │   └── auth.py               # Supabase token verification
-│   │   ├── models/                   # SQLAlchemy ORM models (20 files)
-│   │   │   ├── role.py
-│   │   │   ├── user.py
-│   │   │   ├── project.py
-│   │   │   ├── wbs.py
-│   │   │   ├── activity.py
-│   │   │   ├── activity_relationship.py
-│   │   │   ├── baseline.py
-│   │   │   └── ... (13 more models)
-│   │   ├── schemas/
-│   │   │   └── schemas.py            # Pydantic request/response schemas
-│   │   ├── scheduling/
-│   │   │   └── engine.py             # CPM scheduling engine
-│   │   └── services/
-│   │       ├── schedule_service.py   # Schedule business logic
-│   │       └── audit_service.py      # Audit trail logging
-│   ├── migrations/                   # Alembic migration files
-│   ├── tests/
-│   │   └── test_cpm.py              # CPM engine unit tests
-│   ├── requirements.txt              # Python dependencies
-│   ├── Dockerfile
-│   ├── .env                          # Environment variables (gitignored)
-│   └── .env.example                  # Template for .env
-│
+�?  ├── app/
+�?  �?  ├── __init__.py
+�?  �?  ├── main.py                   # FastAPI app entry point
+�?  �?  ├── api/
+�?  �?  �?  └── v1/
+�?  �?  �?      ├── router.py         # API router aggregation
+�?  �?  �?      └── endpoints/
+�?  �?  �?          ├── auth.py       # POST /auth/login, /auth/me
+�?  �?  �?          ├── projects.py   # CRUD /projects
+�?  �?  �?          ├── wbs.py        # CRUD /projects/{id}/wbs
+�?  �?  �?          ├── activities.py # CRUD /projects/{id}/activities
+�?  �?  �?          ├── relationships.py  # CRUD relationships
+�?  �?  �?          ├── schedule.py   # POST /projects/{id}/schedule
+�?  �?  �?          └── baselines.py  # CRUD baselines
+�?  �?  ├── core/
+�?  �?  �?  ├── config.py             # Pydantic settings
+�?  �?  �?  ├── database.py           # SQLAlchemy engine setup
+�?  �?  �?  └── auth.py               # Supabase token verification
+�?  �?  ├── models/                   # SQLAlchemy ORM models (20 files)
+�?  �?  �?  ├── role.py
+�?  �?  �?  ├── user.py
+�?  �?  �?  ├── project.py
+�?  �?  �?  ├── wbs.py
+�?  �?  �?  ├── activity.py
+�?  �?  �?  ├── activity_relationship.py
+�?  �?  �?  ├── baseline.py
+�?  �?  �?  └── ... (13 more models)
+�?  �?  ├── schemas/
+�?  �?  �?  └── schemas.py            # Pydantic request/response schemas
+�?  �?  ├── scheduling/
+�?  �?  �?  └── engine.py             # CPM scheduling engine
+�?  �?  └── services/
+�?  �?      ├── schedule_service.py   # Schedule business logic
+�?  �?      └── audit_service.py      # Audit trail logging
+�?  ├── migrations/                   # Alembic migration files
+�?  ├── tests/
+�?  �?  └── test_cpm.py              # CPM engine unit tests
+�?  ├── requirements.txt              # Python dependencies
+�?  ├── Dockerfile
+�?  ├── .env                          # Environment variables (gitignored)
+�?  └── .env.example                  # Template for .env
+�?
 ├── frontend/                         # React TypeScript frontend
-│   ├── src/
-│   │   ├── main.tsx                  # React entry point
-│   │   ├── App.tsx                   # Root component with routing
-│   │   ├── services/
-│   │   │   ├── supabase.ts           # Supabase client
-│   │   │   └── api.ts               # Axios API client
-│   │   ├── contexts/
-│   │   │   └── AuthContext.tsx        # Auth state provider
-│   │   ├── pages/
-│   │   │   ├── LoginPage.tsx         # Login form
-│   │   │   ├── DashboardPage.tsx     # Project dashboard
-│   │   │   ├── ProjectWorkspace.tsx  # Main project workspace
-│   │   │   ├── ActivitiesPage.tsx    # Activity CRUD
-│   │   │   └── SchedulePage.tsx      # CPM schedule runner
-│   │   └── vite-env.d.ts            # TypeScript env declarations
-│   ├── public/
-│   ├── package.json
-│   ├── tsconfig.json
-│   ├── vite.config.ts
-│   ├── Dockerfile
-│   ├── .env                          # Environment variables (gitignored)
-│   └── .env.example                  # Template for .env
-│
+�?  ├── src/
+�?  �?  ├── main.tsx                  # React entry point
+�?  �?  ├── App.tsx                   # Root component with routing
+�?  �?  ├── services/
+�?  �?  �?  ├── supabase.ts           # Supabase client
+�?  �?  �?  └── api.ts               # Axios API client
+�?  �?  ├── contexts/
+�?  �?  �?  └── AuthContext.tsx        # Auth state provider
+�?  �?  ├── pages/
+�?  �?  �?  ├── LoginPage.tsx         # Login form
+�?  �?  �?  ├── DashboardPage.tsx     # Project dashboard
+�?  �?  �?  ├── ProjectWorkspace.tsx  # Main project workspace
+�?  �?  �?  ├── ActivitiesPage.tsx    # Activity CRUD
+�?  �?  �?  └── SchedulePage.tsx      # CPM schedule runner
+�?  �?  └── vite-env.d.ts            # TypeScript env declarations
+�?  ├── public/
+�?  ├── package.json
+�?  ├── tsconfig.json
+�?  ├── vite.config.ts
+�?  ├── Dockerfile
+�?  ├── .env                          # Environment variables (gitignored)
+�?  └── .env.example                  # Template for .env
+�?
 ├── docker-compose.yml                # Docker orchestration
 ├── .gitignore
 ├── PRD_V1.md                         # Product Requirements Document
@@ -678,7 +678,7 @@ import MyPage from './pages/MyPage';
 - **Naming**: `snake_case` for Python, `camelCase` for TypeScript/JSX
 - **Models**: One SQLAlchemy model per file in `backend/app/models/`
 - **Schemas**: All Pydantic schemas in `backend/app/schemas/schemas.py`
-- **Imports**: Standard library → third-party → local (each group separated)
+- **Imports**: Standard library �?third-party �?local (each group separated)
 - **Commits**: Use meaningful commit messages (conventional commits preferred)
 
 ---
@@ -692,7 +692,7 @@ import MyPage from './pages/MyPage';
 ssh user@your-server
 
 # 2. Clone the repository
-git clone https://github.com/your-org/qplan.git
+git clone https://github.com/tms-qinst/qplan.git
 cd qplan
 
 # 3. Copy and edit production environment files
@@ -904,14 +904,14 @@ git push origin feature/my-feature
 ```
 
 ### Rules
-- ✅ Pull requests required for all changes
-- ✅ Code review required before merge
-- ❌ No direct push to `main`
-- ❌ Never commit `.env` files with real credentials
-- ❌ Never commit `node_modules/` or `__pycache__/`
+- �?Pull requests required for all changes
+- �?Code review required before merge
+- �?No direct push to `main`
+- �?Never commit `.env` files with real credentials
+- �?Never commit `node_modules/` or `__pycache__/`
 
 ---
 
 ## License
 
-Proprietary — All rights reserved.
+Proprietary �?All rights reserved.
